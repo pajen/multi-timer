@@ -1,0 +1,6 @@
+[submodule "pebble/src/libs/rockshot"]
+	path = pebble/src/libs/rockshot
+	url = git@github.com:smallstoneapps/rockshot-pebble.git
+[submodule "javascript/libs/rockshot"]
+	path = javascript/libs/rockshot
+	url = git@github.com:smallstoneapps/rockshot-javascript.git
