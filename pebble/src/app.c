@@ -8,6 +8,7 @@
 #include <pebble.h>
 
 #include "libs/bitmaps.h"
+#include "libs/rockshot/rockshot.h"
 #include "windows/win-timers.h"
 #include "settings.h"
 #include "timers.h"
@@ -29,6 +30,8 @@ void handle_init() {
   if (settings()->save_timers_auto) {
     timers_restore();
   }
+  rockshot_init();
+  rockshot_setup_no_app_message();
   win_timers_init();
   win_timers_show();
 }

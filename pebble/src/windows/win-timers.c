@@ -7,6 +7,7 @@
 
 #include <pebble.h>
 
+#include "../libs/rockshot/rockshot.h"
 #include "../libs/pebble-assist.h"
 #include "../timers.h"
 #include "../timer.h"
@@ -41,14 +42,17 @@ static void menu_draw_footer_row(GContext* ctx, const Layer *cell_layer, MenuInd
 static void menu_draw_timer_row(GContext* ctx, const Layer *cell_layer, MenuIndex *cell_index, void *data);
 static void jump_to_timer(int t, bool animate);
 
-static Window* window;
-static MenuLayer* layer_menu;
+static Window* window = NULL;
+static MenuLayer* layer_menu = NULL;
+static Layer* layer_rockshot = NULL;
 
 void win_timers_init(void) {
   window = window_create();
   window_set_window_handlers(window, (WindowHandlers) {
     .appear = window_appear
   });
+
+  layer_rockshot = rockshot_create_layer(window);
 
   layer_menu = menu_layer_create_fullscreen(window);
   menu_layer_set_callbacks(layer_menu, NULL, (MenuLayerCallbacks) {
@@ -85,6 +89,7 @@ void win_timers_destroy(void) {
   win_settings_destroy();
   window_destroy(window);
   menu_layer_destroy(layer_menu);
+  layer_destroy_safe(layer_rockshot);
 }
 
 void win_timers_jump(int pos) {
